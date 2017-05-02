@@ -1,7 +1,7 @@
 /* global __dirname, module, require */
 const path = require('path'),
-	pkg = require('./package.json');
-	// UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+	pkg = require('./package.json'),
+	UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const deps = pkg.dependencies || {};
 
@@ -36,6 +36,6 @@ module.exports = {
 		],
 	},
 	plugins: [
-		// new UglifyJSPlugin(),
+		new UglifyJSPlugin(),
 	],
 };

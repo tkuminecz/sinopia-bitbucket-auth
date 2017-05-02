@@ -17,7 +17,7 @@ type AuthStuff = {
 /**
  * BitbucketAuth class
  */
-export default class BitbucketAuth {
+class BitbucketAuth {
 
 	allow: DictOf<string>
 
@@ -32,6 +32,8 @@ export default class BitbucketAuth {
 		this.ttl = (config.ttl || DEFAULT_TTL) * 1000;
 		this.bitbucket = null;
 		this.logger = stuff.logger;
+
+		this.logger.info({ allow: this.allow }, 'bitbucket allow config: @{allow}');
 	}
 
 	/**
@@ -56,7 +58,6 @@ export default class BitbucketAuth {
 			})
 			.then(body => {
 				const teams = body.teams;
-				console.log(teams);
 
 				const allowedTeams = Object.keys(teams)
 					.filter(team => {
@@ -70,6 +71,8 @@ export default class BitbucketAuth {
 
 						return ~this.allow[team].indexOf(teams[team]);
 					});
+
+				this.logger.info({ email, teams, allowedTeams }, '@{email} - @{teams} / @{allowedTeams}');
 
 				onComplete(null, allowedTeams);
 			})
@@ -98,12 +101,12 @@ function base64Encode(str: string): string {
  * :: string -> DictOf string
  */
 function parseAllow(allow: string): DictOf<string> {
-	const result = {};
+	var result = {};
 
-	allow.split(/\s*,\s*/).forEach(team => {
-		let teamChunks = team.trim().match(/^(.*?)(\((.*?)\))?$/);
+	allow.split(/\s*,\s*/).forEach((team: string) => {
+		const teamChunks: Array<string> = ((team.trim().match(/^(.*?)(\((.*?)\))?$/): any): Array<string>);
 
-		result[team[1]] = team[3] ? team[3].split('|') : [];
+		result[teamChunks[1]] = teamChunks[3] ? teamChunks[3].split('|') : [];
 	});
 
 	return result;
@@ -130,6 +133,8 @@ function decodeUsernameToEmail(username: string): string {
 }
 
 
-const auth = new BitbucketAuth({ allow: '' }, { logger: (...args) => console.log(...args) });
+// const auth = new BitbucketAuth({ allow: '' }, { logger: (...args) => console.log(...args) });
 
-auth.authenticate('tkuminecz@gmail.com', 'Rv49cmZYAD3$vL#', (x) => console.log(x));
+// auth.authenticate('tkuminecz@gmail.com', 'Rv49cmZYAD3$vL#', (x) => console.log(x));
+
+module.exports = (config: *, stuff: *): BitbucketAuth => new BitbucketAuth(config, stuff);

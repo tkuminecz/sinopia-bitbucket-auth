@@ -35,6 +35,8 @@
     "flow-bin": "^0.45.0",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
+    "uglify-js": "^2.8.22",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "webpack": "^2.4.1"
   }
 }
