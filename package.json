@@ -1,0 +1,40 @@
+{
+  "name": "sinopia-bitbucket-auth",
+  "version": "1.0.0",
+  "description": "Sinopia plugin to provide authorization via BitBucket",
+  "repository": "git@github.com:tkuminecz/sinopia-bitbucket-auth.git",
+  "author": "Tim Kuminecz <tkuminecz@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "jsnext:main": "src/index.js",
+  "config": {
+    "libName": "SinopiaBitbucketAuth"
+  },
+  "scripts": {
+    "babel": "babel-node",
+    "prebuild": "npm-run-all clean lint flow",
+    "build": "webpack",
+    "clean": "rimraf dist",
+    "flow": "flow",
+    "lint": "eslint src test"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "flow-helpers": "^2.0.1",
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-proper": "^1.0.0",
+    "flow-bin": "^0.45.0",
+    "npm-run-all": "^4.0.2",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.4.1"
+  }
+}
